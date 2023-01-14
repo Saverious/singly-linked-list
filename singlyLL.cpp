@@ -69,12 +69,47 @@ void insertEnd(int val){
     }
 }
 
+void insertAfter(int value, int index){
+    if(!isEmpty()){
+        int init;
+        struct node* temp=NULL;
+        temp=head;
+        for(init=0;init<index;init++){
+            temp=temp->next;
+        }
+        if(temp->next==NULL){
+            cout<<"\n   The index given belongs to the last node. Inserting at the end...";
+            insertEnd(value);
+        }else{
+            struct node* ptr=NULL;
+            ptr=(struct node*)malloc(sizeof(struct node));
+            if(ptr==NULL){
+                cout<<"\n   Failed to allocate memory";
+            }else{
+                ptr->age=value;
+                ptr->next=temp->next;
+                cout<<"\n   Next of previous node before insertion-### : "<<temp->next;
+                temp->next=ptr;
+                cout<<"\n   Next of previous node after insertion-&&& : "<<temp->next;
+                cout<<"\n   Node inserted after node number "<<index;
+                cout<<"\n   Address of previous node : "<<temp;
+                cout<<"\n   Next of inserted node-### : "<<ptr->next;
+                cout<<"\n   Address of inserted node-&&& : "<<ptr;
+            }
+        }
+    }else{
+        cout<<"\n   The list is empty. Proceeding to insert the first node...";
+        insertFront(value);
+    }
+}
+
 int main(){
     int choice;
     int age;
+    int index;
     do{
         cout<<"\n\n***SINGLY LINKED LIST DATA STRUCTURE***\n";
-        cout<<"   1. Insert at the beginning\n   2. Insert at the end\n   0. Exit\n\n";
+        cout<<"   1. Insert at the beginning\n   2. Insert at the end\n   3. Insert after a specified node\n   0. Exit\n\n";
         cout<<"   Enter option : ";
         cin>>choice;
 
@@ -86,9 +121,17 @@ int main(){
             break;
 
             case 2:
-            cout<<"\n   Enter age : ";
+            cout<<"   Enter age : ";
             cin>>age;
             insertEnd(age);
+            break;
+
+            case 3:
+            cout<<"   Enter age : ";
+            cin>>age;
+            cout<<"   Enter node index to insert after : ";
+            cin>>index;
+            insertAfter(age,index);
             break;
 
             case 0:
